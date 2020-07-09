@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -7,6 +7,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import Switch from "@material-ui/core/Switch";
 import { makeStyles, fade } from "@material-ui/core";
+import { ThemeContext } from "./contexts/ThemeContext";
 // import styles from "./styles/NavbarStyles";
 
 const styles = makeStyles(theme => ({
@@ -71,9 +72,12 @@ const styles = makeStyles(theme => ({
 
 const Navbar = () => {
     const classes = styles();
+
+    const { isDarkMode, toggleTheme } = useContext(ThemeContext);
+
     return (
         <div className={classes.root}>
-            <AppBar position='static' color='primary'>
+            <AppBar position='static' color={isDarkMode ? 'default' : 'primary'}>
                 <Toolbar>
                     <IconButton className={classes.menuButton} color='inherit'>
                         <span role='img' aria-label='flag-emoji'>🏁</span>
@@ -81,7 +85,7 @@ const Navbar = () => {
                     <Typography className={classes.title} color='inherit' variant='h6'>
                         Form
                     </Typography>
-                    <Switch />
+                    <Switch onChange={toggleTheme} />
                     <div className={classes.grow} />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
